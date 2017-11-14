@@ -99,9 +99,6 @@ class VKPageBot {
 	}
 
 	protected function sendMessage($message, $targetId, $repliedId = null) {
-		foreach($this->getConfig()['forwardFilter'] as $match)
-			$message = preg_replace($match, $this->getConfig()['forwardReplace'], $message);
-
 		$params = [
 			'peer_id' => $targetId,
 			'message' => $message,
