@@ -72,9 +72,9 @@ $bot = new Bot();
 $bot->addHandler(VKPageBot::EVENT_NEW_MESSAGE, 'Bot', 'message', [
 	'inputOnly' => true
 ]);
-// $bot->addHandler(VKPageBot::EVENT_FRIEND_ONLINE, 'Bot', 'friendOnline');
-// $bot->addHandler(VKPageBot::EVENT_READ_OUTPUT, 'Bot', 'readOutput');
-// $bot->addHandler(VKPageBot::EVENT_USER_WRITING, 'Bot', 'userWriting');
+$bot->addHandler(VKPageBot::EVENT_FRIEND_ONLINE, 'Bot', 'friendOnline');
+$bot->addHandler(VKPageBot::EVENT_READ_OUTPUT, 'Bot', 'readOutput');
+$bot->addHandler(VKPageBot::EVENT_USER_WRITING, 'Bot', 'userWriting');
 
 $bot->loop();
 
