@@ -3,6 +3,22 @@
 [Пример создания чат-бота](/example.php)
 
 
+Обрабатываемые события
+======================
+```
+EVENT_UPDATE_FLAG_MESSAGE - обновилось состояние сообщения (например, прочитано или удалено)
+EVENT_SET_FLAG_MESSAGE - установилось состояние сообщения
+EVENT_REPLACE_FLAG_MESSAGE - изменилось состояние сообщения
+EVENT_NEW_MESSAGE - новое сообщение (исходящие тоже тут есть, параметр outputOnly для "только входящие")
+EVENT_READ_INPUT - входящее сообщение прочитано
+EVENT_READ_OUTPUT - исходящее сообщение прочитано
+EVENT_FRIEND_ONLINE - друг онлайн
+EVENT_FRIEND_OFFLINE - друг оффлайн
+EVENT_USER_WRITING - пользователь пишет в лс
+EVENT_USER_CHAT_WRITING - пользователь пишет в беседе
+```
+
+
 Пример
 ======
 Подробнее о событиях можно почитать [тут]([https://vk.com/dev/using_longpoll?f=3.%20%D0%A1%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0%20%D1%81%D0%BE%D0%B1%D1%8B%D1%82%D0%B8%D0%B9)
