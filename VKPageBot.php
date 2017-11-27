@@ -16,6 +16,7 @@ class VKPageBot {
 	const EVENT_FRIEND_OFFLINE = 9;
 	const EVENT_CHAT_CHENGE = 51;
 	const EVENT_USER_WRITING = 61;
+	const EVENT_CHAT_CHENGE = 51;
 	const EVENT_USER_CHAT_WRITING = 62;
 
 	protected static $flags = [65536, 512, 256, 128, 64, 32, 16, 8, 4, /*2,*/ 1];
@@ -265,7 +266,15 @@ class VKPageBot {
 								$callable::$func($event, $this->getConfig());
 							}
 						break;
+					case self::EVENT_CHAT_CHENGE:
+							if(!isset($this->functions[self::EVENT_CHAT_CHENGE]))
+								continue;
 
+							for($i = 0; $i < count($this->functions[self::EVENT_CHAT_CHENGE]); $i++) {
+								$callable  = $this->functions[self::EVENT_CHAT_CHENGE][$i]['class'];
+								$func = $this->functions[self::EVENT_CHAT_CHENGE][$i]['func'];
+
+<<<<<<< HEAD
 					case self::EVENT_CHAT_CHENGE:
 							if(!isset($this->functions[self::EVENT_CHAT_CHENGE]))
 								continue;
@@ -278,6 +287,11 @@ class VKPageBot {
 							}
 						break;
 
+=======
+								$callable::$func($event, $this->getConfig());
+							}
+						break;
+>>>>>>> f1383cda64334d5f708c7a567095b3e323e4ea0d
 					case self::EVENT_USER_CHAT_WRITING:	
 							if(!isset($this->functions[self::EVENT_USER_CHAT_WRITING]))
 								continue;
