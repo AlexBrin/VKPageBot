@@ -14,6 +14,7 @@ class VKPageBot {
 	const EVENT_READ_OUTPUT = 7;
 	const EVENT_FRIEND_ONLINE = 8;
 	const EVENT_FRIEND_OFFLINE = 9;
+	const EVENT_CHAT_CHENGE = 51;
 	const EVENT_USER_WRITING = 61;
 	const EVENT_USER_CHAT_WRITING = 62;
 
@@ -61,7 +62,7 @@ class VKPageBot {
 		$this->token = $this->config['token'];
 		unset($this->config['token']);
 		
-		$this->longpoll = $this->request('messages.getLongPollServer');
+		$this->getLongPollData();
 
 		print_r("====================\n");
 		print_r("   ГОТОВ К РАБОТЕ   \n");
@@ -76,6 +77,10 @@ class VKPageBot {
 	public function __destruct() {
 		if($this->com)
 			fclose($this->com);
+	}
+
+	private function getLongPollData() {
+		$this->longpoll = $this->request('messages.getLongPollServer');
 	}
 
 	public function __get($key) {
@@ -99,6 +104,9 @@ class VKPageBot {
 	}
 
 	protected function sendMessage($message, $targetId, $repliedId = null) {
+		foreach($this->getConfig()['forwardFilter'] as $match)
+			$message = preg_replace($match, $this->getConfig()['forwardReplace'], $message);
+
 		$params = [
 			'peer_id' => $targetId,
 			'message' => $message,
@@ -119,6 +127,20 @@ class VKPageBot {
 			$events = file_get_contents("https://" . $this->longpoll['server'] . 
 				"?act=a_check&mode=2&version=2&key=" . $this->longpoll['key'] . "&ts=" . $ts);
 			$events = json_decode($events, true);
+
+			if(isset($events['failed'])) {
+				switch($events['failed']) {
+					case 1:
+							$ts = $events['ts'];
+						break;
+					case 2:
+					case 3:
+							$this->getLongPollData();
+						break;
+				}
+				continue;
+			}
+
 			$ts = $events["ts"];
 
 			foreach($events["updates"] as $event) {
@@ -241,6 +263,18 @@ class VKPageBot {
 								$func = $this->functions[self::EVENT_USER_WRITING][$i]['func'];
 
 								$callable::$func($event, $this->getConfig());
+							}
+						break;
+
+					case self::EVENT_CHAT_CHENGE:
+							if(!isset($this->functions[self::EVENT_CHAT_CHENGE]))
+								continue;
+
+							for($i = 0; $i < count($this->functions[self::EVENT_CHAT_CHENGE]); $i++) {
+								$callable = $this->functions[self::EVENT_CHAT_CHENGE][$i]['class'];
+								$func = $this->functions[self::EVENT_CHAT_CHENGE][$i]['func'];
+
+								$callable::$fund($event, $this->getConfig());
 							}
 						break;
 

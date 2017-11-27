@@ -14,6 +14,7 @@ EVENT_READ_INPUT - входящее сообщение прочитано
 EVENT_READ_OUTPUT - исходящее сообщение прочитано
 EVENT_FRIEND_ONLINE - друг онлайн
 EVENT_FRIEND_OFFLINE - друг оффлайн
+EVENT_CHAT_CHENGE - изменен какой-либо из параметров беседы
 EVENT_USER_WRITING - пользователь пишет в лс
 EVENT_USER_CHAT_WRITING - пользователь пишет в беседе
 ```
