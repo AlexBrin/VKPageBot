@@ -14,7 +14,7 @@ class VKPageBot {
 	const EVENT_READ_OUTPUT = 7;
 	const EVENT_FRIEND_ONLINE = 8;
 	const EVENT_FRIEND_OFFLINE = 9;
-	const EVENT_CHAT_CHENGE = 51;
+	const EVENT_CHAT_CHANGE = 51;
 	const EVENT_USER_WRITING = 61;
 	const EVENT_USER_CHAT_WRITING = 62;
 
@@ -266,15 +266,15 @@ class VKPageBot {
 							}
 						break;
 
-					case self::EVENT_CHAT_CHENGE:
-							if(!isset($this->functions[self::EVENT_CHAT_CHENGE]))
+					case self::EVENT_CHAT_CHANGE:
+							if(!isset($this->functions[self::EVENT_CHAT_CHANGE]))
 								continue;
 
-							for($i = 0; $i < count($this->functions[self::EVENT_CHAT_CHENGE]); $i++) {
-								$callable = $this->functions[self::EVENT_CHAT_CHENGE][$i]['class'];
-								$func = $this->functions[self::EVENT_CHAT_CHENGE][$i]['func'];
+							for($i = 0; $i < count($this->functions[self::EVENT_CHAT_CHANGE]); $i++) {
+								$callable = $this->functions[self::EVENT_CHAT_CHANGE][$i]['class'];
+								$func = $this->functions[self::EVENT_CHAT_CHANGE][$i]['func'];
 
-								$callable::$fund($event, $this->getConfig());
+								$callable::$func($event, $this->getConfig());
 							}
 						break;
 
