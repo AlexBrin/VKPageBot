@@ -274,7 +274,7 @@ class VKPageBot {
 								$callable = $this->functions[self::EVENT_CHAT_CHENGE][$i]['class'];
 								$func = $this->functions[self::EVENT_CHAT_CHENGE][$i]['func'];
 
-								$callable::$fund($event, $this->getConfig());
+								$callable::$func($event, $this->getConfig());
 							}
 						break;
 
