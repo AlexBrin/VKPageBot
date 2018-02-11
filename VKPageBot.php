@@ -309,6 +309,7 @@ class VKPageBot {
 
 	public function request($method, $params = []) {
 		$params['access_token'] = $this->token;
+		$params['v'] = "5.71";
 		$params = http_build_query($params);
 
 		$response = file_get_contents(self::BASE . $method . '?' . $params);
